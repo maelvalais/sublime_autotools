@@ -1,0 +1,51 @@
+{
+    "name": "autoconf",
+    "displayName": "autoconf",
+    "description": "Syntax support for the Autoconf M4 and Automake files",
+    "version": "0.0.1",
+    "publisher": "maelvalais",
+    "repository": "https://github.com/maelvalais/vscode_autotools",
+    "engines": {
+        "vscode": "^1.10.0"
+    },
+    "categories": [
+        "Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "m4",
+            "aliases": ["Autoconf M4", "m4"],
+            "extensions": ["configure.ac","configure.in",".m4"],
+            "configuration": "./language-configuration.json"
+        },
+        {
+            "id": "automake",
+            "aliases": ["Automake", "automake"],
+            "extensions": [".am",".am.inc","Makefile.in"],
+            "configuration": "./language-configuration.json"
+        }
+        ,{
+            "id": "makefile2",
+            "aliases": ["Makefile", "makefile2"],
+            "extensions": [],
+            "configuration": "./language-configuration.json"
+        }
+        ],
+        "grammars": [{
+            "language": "m4",
+            "scopeName": "source.m4",
+            "path": "./Autoconf.tmLanguage"
+        },
+        {
+            "language": "automake",
+            "scopeName": "source.automake",
+            "path": "./Automake.tmLanguage"
+        }
+        ,{
+            "language": "makefile2",
+            "scopeName": "source.makefile2",
+            "path": "./Makefile2.tmLanguage"
+        }
+        ]
+    }
+}
