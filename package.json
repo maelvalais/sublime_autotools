@@ -2,7 +2,8 @@
     "name": "autoconf",
     "displayName": "autoconf",
     "description": "Syntax support for the Autoconf M4 and Automake files",
-    "version": "0.0.1",
+    "version": "0.0.2",
+    "icon": "icon.png",
     "publisher": "maelvalais",
     "repository": "https://github.com/maelvalais/vscode_autotools",
     "engines": {
@@ -26,7 +27,7 @@
         }
         ,{
             "id": "makefile2",
-            "aliases": ["Makefile", "makefile2"],
+            "aliases": ["Makefile2", "makefile2"],
             "extensions": [],
             "configuration": "./language-configuration.json"
         }

@@ -20,3 +20,17 @@ Makefile2 is disabled. If you want to try it, add this to your config:
 
 I chose to fork the sublime project in order to have an easy way of updating
 vscode_autotools (which is only a matter of `git merge`).
+
+# Changelog
+
+## v0.0.2
+- Fixed the VSCode-version of Makefile that was shadowed by Makefile2, thus
+  making it impossible to select the VSCode-provided Makefile highlighting.
+- Fixed line comments (`#` instead of `//`)
+- Removed block comments (block comments are not available in makefiles)
+- added an icon, because we all kind of like nice icons (Twitter, CC 3.0 BY)
+
+## v0.0.1
+- Initial release. I disabled the Makefile2 part that was developped in
+  the upstream project (sublime_autotools) because the Makefile support of
+  vscode seems better (but I didn't really dig much to understand why).
