@@ -2,7 +2,7 @@
     "name": "autoconf",
     "displayName": "autoconf",
     "description": "Syntax support for the Autoconf M4 and Automake files",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "icon": "icon.png",
     "publisher": "maelvalais",
     "repository": "https://github.com/maelvalais/vscode_autotools",
@@ -13,40 +13,67 @@
         "Languages"
     ],
     "contributes": {
-        "languages": [{
-            "id": "m4",
-            "aliases": ["Autoconf M4", "m4"],
-            "extensions": ["configure.ac","configure.in",".m4"],
-            "configuration": "./language-configuration.json"
-        },
-        {
-            "id": "automake",
-            "aliases": ["Automake", "automake"],
-            "extensions": [".am",".am.inc","Makefile.in"],
-            "configuration": "./language-configuration.json"
-        }
-        ,{
-            "id": "makefile2",
-            "aliases": ["Makefile2", "makefile2"],
-            "extensions": [],
-            "configuration": "./language-configuration.json"
-        }
+        "languages": [
+            {
+                "id": "m4",
+                "aliases": [
+                    "Autoconf M4",
+                    "m4"
+                ],
+                "extensions": [
+                    "configure.ac",
+                    "configure.in",
+                    ".m4"
+                ],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "automake",
+                "aliases": [
+                    "Automake",
+                    "automake"
+                ],
+                "extensions": [
+                    ".am",
+                    ".am.inc",
+                    "Makefile.in"
+                ],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "makefile2",
+                "aliases": [
+                    "Makefile2",
+                    "makefile2"
+                ],
+                "extensions": [],
+                "configuration": "./language-configuration.json"
+            }
         ],
-        "grammars": [{
-            "language": "m4",
-            "scopeName": "source.m4",
-            "path": "./Autoconf.tmLanguage"
-        },
-        {
-            "language": "automake",
-            "scopeName": "source.automake",
-            "path": "./Automake.tmLanguage"
-        }
-        ,{
-            "language": "makefile2",
-            "scopeName": "source.makefile2",
-            "path": "./Makefile2.tmLanguage"
-        }
+        "grammars": [
+            {
+                "language": "m4",
+                "scopeName": "source.m4",
+                "path": "./Autoconf.tmLanguage"
+            },
+            {
+                "language": "automake",
+                "scopeName": "source.automake",
+                "path": "./Automake.tmLanguage"
+            },
+            {
+                "language": "makefile2",
+                "scopeName": "source.makefile2",
+                "path": "./Makefile2.tmLanguage"
+            }
         ]
+    },
+    "devDependencies": {
+        "plist": "latest",
+        "glob-watcher": "^4.0.0"
+    },
+    "scripts": {
+        "start": "node build.js -w",
+        "compile": "node build.js"
     }
 }
