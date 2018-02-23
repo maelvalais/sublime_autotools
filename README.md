@@ -39,6 +39,12 @@ and `Reload Window` to observe the changes.
 
 # Changelog
 
+## v0.0.3
+- Automake: fix a bug with assigments followed by a comment
+- added 'npm start'for rebuilding the tmLanguage files from the JSON-tmLanguage
+  files. You may observe some changes in grammar because of this, please tell
+  me if it is the case!
+
 ## v0.0.2
 - Fixed the VSCode-version of Makefile that was shadowed by Makefile2, thus
   making it impossible to select the VSCode-provided Makefile highlighting.
