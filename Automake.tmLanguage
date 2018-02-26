@@ -504,8 +504,10 @@
         </array>
       </dict>
       <dict>
+        <key>comment</key>
+        <string>instead of using source.makefile2, we use vscode's Makefile (works better)</string>
         <key>include</key>
-        <string>source.makefile2</string>
+        <string>source.makefile</string>
       </dict>
       <dict>
         <key>include</key>

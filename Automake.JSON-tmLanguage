@@ -227,7 +227,8 @@
                 { "include": "#comment"}
             ]
         },
-        { "include": "source.makefile2" },
+        { "comment": "instead of using source.makefile2, we use vscode's Makefile (works better)",
+          "include": "source.makefile" },
         { "include": "#substitution" }
     ],
     "uuid": "db931ddb-e919-4736-bd7d-fcf6e1ceca7f"

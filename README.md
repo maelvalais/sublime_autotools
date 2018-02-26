@@ -1,25 +1,14 @@
-VSCode Autotools
-=================
+Autotools syntax highlighting for VSCode
+========================================
 
-**Autotools syntax highlighting for VSCode**
+This vscode package is a fork of the GitHub project [sublime_autotools]. It
+includes syntax highlighting for Autoconf M4 (`.m4`, `configure.ac`...) and
+Automake files (e.g., `Makefile.am`). This extension uses the vscode's own
+Makefile syntax support for hghlighting makefile things in automake files.
 
-This vscode package is a fork of the github project [sublime_autotools].
-
-This package includes syntax highlighting for Autoconf M4 and Automake files.
-It also provides improved syntax highlighting for Makefiles, called Makefile2;
-but because the default vscode support for Makefile is kind of better,
-Makefile2 is disabled. If you want to try it, add this to your config:
-
-```json
-"files.associations": {
-    "*akefile": "makefile2",
-    ".make": "makefile2",
-    ".mk": "makefile2"
-}
-```
-
-I chose to fork the sublime project in order to have an easy way of updating
-vscode_autotools (which is only a matter of `git merge`).
+I chose to fork the [sublime project][sublime_autotools] in order to have
+an easy way of updating vscode_autotools (which is only a matter of `git
+merge`).
 
 # Development
 
@@ -37,7 +26,18 @@ into `.tmLanguage` whenever you change the json. The idea is to edit the
 JSON and build it to a tmLanguage file. Then do <kbd>cmd</kbd><kbd>P</kbd>
 and `Reload Window` to observe the changes.
 
+# Side notes
+
+The sublime fork also has a Makefile2 (an alternate grammar file for Makefiles)
+but the standard vscode's Makefile support works much better (actually,
+the sublime's one is kind of buggy).
+
 # Changelog
+
+## v0.0.4
+- Use vscode's default Makefile syntax grammar file instead of the sublime's
+  one (Makefile2). This is because Makefile2 was buggy and vscode's one works
+  just fine.
 
 ## v0.0.3
 - Automake: fix a bug with assigments followed by a comment
