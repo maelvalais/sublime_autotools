@@ -6,6 +6,7 @@
     "icon": "icon.png",
     "publisher": "maelvalais",
     "repository": "https://github.com/maelvalais/vscode_autotools",
+    "license": "MIT",
     "engines": {
         "vscode": "^1.10.0"
     },
