@@ -3,7 +3,7 @@
     "displayName": "autoconf",
     "description": "Syntax support for the Autoconf M4 and Automake files (Autotools)",
     "version": "0.0.4",
-    "icon": "icon.png",
+    "icon": "https://github.com/maelvalais/vscode_autotools/blob/master/icon.png",
     "publisher": "maelvalais",
     "repository": "https://github.com/maelvalais/vscode_autotools",
     "license": "MIT",
