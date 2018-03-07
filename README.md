@@ -23,8 +23,8 @@ inside vscode. Then:
 
 Using `npm start`, the `.JSON-tmLanguage` files are automatically built
 into `.tmLanguage` whenever you change the json. The idea is to edit the
-JSON and build it to a tmLanguage file. Then do <kbd>cmd</kbd><kbd>P</kbd>
-and `Reload Window` to observe the changes.
+JSON and build it to a tmLanguage file. Then do ⇧⌘P and `Reload Window`
+to observe the changes.
 
 # Side notes
 
