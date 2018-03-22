@@ -12,10 +12,11 @@ name: Makefile
 repository:
   escaped-char:
     name: constant.character.escape.makefile
-    match: "\\\\."
+    match: \\.
+    patterns: []
   variable-reference:
-    begin: "\\$\\("
-    end: "\\)"
+    begin: \$\(
+    end: \)
     beginCaptures:
       '0':
         name: keyword.operator.makefile
@@ -26,58 +27,60 @@ repository:
     patterns:
     - include: "$self"
     - name: string.other.substitution.makefile
-      match: "(:)[a-zA-Z0-9_%.]+(=)[a-zA-Z0-9_%.]+"
+      match: (:)[a-zA-Z0-9_%.]+(=)[a-zA-Z0-9_%.]+
       captures:
         '1':
           name: keyword.operator.substitution.makefile
         '2':
           name: keyword.operator.substitution.makefile
     - name: support.function.makefile
-      match: "(?<=\\$\\()(addprefix|addsuffix|and|basename|call|dir|error|eval|file|filter|filter-out|findstring|firstword|flavor|foreach|guile|if|info|join|notdir|or|origin|patsubst|shell|sort|strip|subst|suffix|value|warning|wildcard|word|words)\\b"
+      match: (?<=\$\()(addprefix|addsuffix|and|basename|call|dir|error|eval|file|filter|filter-out|findstring|firstword|flavor|foreach|guile|if|info|join|notdir|or|origin|patsubst|shell|sort|strip|subst|suffix|value|warning|wildcard|word|words)\b
   automatic-variable:
     name: variable.language.makefile
-    match: "\\$([@%<?^+*]|\\([@*%<^?][DF]\\))"
+    match: \$([@%<?^+*]|\([@*%<^?][DF]\))
+    patterns: []
   shell-variable-reference:
-    begin: "\\$\\{"
-    end: "\\}"
+    begin: \$\{
+    end: \}
     contentName: variable.other.shell.makefile
+    patterns: []
   double-quoted-string:
     name: string.quoted.double.makefile
-    begin: "\""
-    end: "\""
+    begin: \"
+    end: \"
     patterns:
     - include: "#escaped-char"
   single-quoted-string:
     name: string.quoted.single.makefile
-    begin: "'"
-    end: "'"
+    begin: '
+    end: '
     patterns:
     - include: "#escaped-char"
   backtick-subshell:
-    begin: "`"
-    end: "`"
+    begin: '`'
+    end: '`'
     name: string.interpolated.backtick.makefile
     patterns:
     - include: source.shell
     - include: "#variable-reference"
 patterns:
-- begin: "#"
+- begin: '#'
   beginCaptures:
     '0':
       name: punctuation.definition.comment.makefile
-  end: "$\\n?"
+  end: $\n?
   name: comment.line.number-sign.makefile
   patterns:
-  - match: "(?<!\\\\)\\\\$\\n"
+  - match: (?<!\\)\\$\n
     name: punctuation.separator.continuation.makefile
 - name: meta.assignment.makefile
-  begin: "^([a-zA-Z_][a-zA-Z0-9_]*)\\s*([\\+\\?:]?=)"
+  begin: ^([a-zA-Z_][a-zA-Z0-9_]*)\s*([\+\?:]?=)
   beginCaptures:
     '1':
       name: variable.other.makefile
     '2':
       name: keyword.operator.assignment.makefile
-  end: "(?<!\\\\)\\n$"
+  end: (?<!\\)\n$
   patterns:
   - include: "#automatic-variable"
   - include: "#variable-reference"
@@ -87,22 +90,21 @@ patterns:
   - include: "#single-quoted-string"
   - include: "#backtick-subshell"
 - name: meta.rule.makefile
-  begin: "^([^\\t\\:][^\\:]*)\\:"
-  end: "^(?!\t)"
+  begin: '^([^\t\:][^\:]*)\:'
+  end: ^(?!\t)
   beginCaptures:
     '1':
       name: entity.name.function.rule.makefile
   patterns:
   - name: meta.prerequisites.makefile
-    begin: "(?<=:)(?=.)"
-    end: ";|\\n"
+    begin: (?<=:)(?=.)
+    end: ;|\n
     patterns:
     - include: "#variable-reference"
   - include: "#automatic-variable"
   - include: "#variable-reference"
   - include: source.shell
-- match: "^(\\-??include|if|ifeq|ifneq|ifdef|ifndef|else|endif|vpath|export|unexport|define|endef|override)\\b"
+- match: ^(\-??include|if|ifeq|ifneq|ifdef|ifndef|else|endif|vpath|export|unexport|define|endef|override)\b
   name: keyword.control.makefile
 - include: "#variable-reference"
 uuid: FF1825E8-6B1C-11D9-B883-000D93589AF6
-

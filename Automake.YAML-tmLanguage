@@ -10,11 +10,12 @@ repository:
   escaped-char:
     comment: Copy of Makefile
     name: constant.character.escape.makefile
-    match: "\\\\."
+    match: \\.
+    patterns: []
   variable-reference:
     comment: Copy of Makefile
-    begin: "\\$\\("
-    end: "\\)"
+    begin: \$\(
+    end: \)
     beginCaptures:
       '0':
         name: keyword.operator.makefile
@@ -25,41 +26,43 @@ repository:
     patterns:
     - include: "$self"
     - name: string.other.substitution.makefile
-      match: "(:)[a-zA-Z0-9_%.]+(=)[a-zA-Z0-9_%.]+"
+      match: (:)[a-zA-Z0-9_%.]+(=)[a-zA-Z0-9_%.]+
       captures:
         '1':
           name: keyword.operator.substitution.makefile
         '2':
           name: keyword.operator.substitution.makefile
     - name: support.function.makefile
-      match: "(?<=\\$\\()(addprefix|addsuffix|basename|call|dir|error|filter(-out)?|findstring|firstword|foreach|join|notdir|origin|patsubst|shell|sort|strip|subst|suffix|warning|wildcard|words?)\\b"
+      match: (?<=\$\()(addprefix|addsuffix|basename|call|dir|error|filter(-out)?|findstring|firstword|foreach|join|notdir|origin|patsubst|shell|sort|strip|subst|suffix|warning|wildcard|words?)\b
   automatic-variable:
     comment: Copy of Makefile
     name: variable.language.makefile
-    match: "\\$([@%<?^+*]|\\([@*%<^?][DF]\\))"
+    match: \$([@%<?^+*]|\([@*%<^?][DF]\))
+    patterns: []
   shell-variable-reference:
     comment: Copy of Makefile
-    begin: "\\$\\{"
-    end: "\\}"
+    begin: \$\{
+    end: \}
     contentName: variable.other.shell.makefile
+    patterns: []
   double-quoted-string:
     comment: Copy of Makefile
     name: string.quoted.double.makefile
-    begin: "\""
-    end: "\""
+    begin: \"
+    end: \"
     patterns:
     - include: "#escaped-char"
   single-quoted-string:
     comment: Copy of Makefile
     name: string.quoted.single.makefile
-    begin: "'"
-    end: "'"
+    begin: '
+    end: '
     patterns:
     - include: "#escaped-char"
   backtick-subshell:
     comment: Copy of Makefile
-    begin: "`"
-    end: "`"
+    begin: '`'
+    end: '`'
     name: string.interpolated.backtick.makefile
     patterns:
     - include: source.shell
@@ -67,25 +70,27 @@ repository:
   substitution:
     comment: Substitutions from AC_SUBST
     name: string.interpolated.substitution.automake
-    match: "@\\w+@"
+    match: '@\w+@'
+    patterns: []
   no-subst-comment:
     comment: 'Lines starting with ## are not copied into Makefile.in, and no substitutions
       are performed'
     name: comment.line.double-number-sign.automake
-    begin: "^##"
-    end: "$"
+    begin: ^##
+    end: $
+    patterns: []
   comment:
     comment: Copy of makefile's comment, but substitutions are allowed
-    begin: "#"
-    end: "$"
+    begin: #
+    end: $
     name: comment.line.number-sign.automake
     patterns:
     - include: "#substitution"
   flags-assignment:
     comment: Assignment to a FLAGS variable
     name: meta.assignment.flags.automake
-    begin: "^ *((?:AM_)?(?:C|CCAS|CPP|CXX|F|GCJ|JAVAC|L|LD|LIBTOOL|(?:[A-Z]+_)?LOG|MAKEINFO(?:HTML)?|OBJC|R|UPC|VALA|Y)FLAGS)\\s*([\\+\\?:]?=)"
-    end: "(?<!\\\\)\\n$"
+    begin: ^ *((?:AM_)?(?:C|CCAS|CPP|CXX|F|GCJ|JAVAC|L|LD|LIBTOOL|(?:[A-Z]+_)?LOG|MAKEINFO(?:HTML)?|OBJC|R|UPC|VALA|Y)FLAGS)\s*([\+\?:]?=)
+    end: (?<!\\)\n$
     beginCaptures:
       '1':
         name: keyword.other.flags.automake
@@ -96,8 +101,8 @@ repository:
   keyword-assignment:
     comment: Assignment to a non-primary, secondary, flags, or dir variable
     name: meta.assignment.keyword.automake
-    begin: "^ *(AM_(?:DEFAULT_SOURCE_EXT|DISTCHECK_CONFIGURE_FLAGS|TESTS_(?:ENVIRONMENT|FD_REDIRECT))|AUTOMAKE_OPTIONS|BUILT_SOURCES|CC|CLASSPATH_ENV|(?:DIST|MAINTAINER|MOSTLY)?CLEANFILES|COMPILE|(?:CXX|FC|OBJC|UPC)(?:COMPILE|LINK)?|DEFAULT_INCLUDES|DEFS|DVIPS|ETAGS_ARGS|EXTRA_DIST|F77(?:COMPILE)?|FLINK|INCLUDE|JAVAC|JAVAROOT|LIBS|LINK|(?:[A-Z]+_)?LOG_COMPILER|MAKEINFO(?:HTML)?|(?:OMIT|TAGS)_DEPENDENCIES|(?:DIST_)?SUBDIRS|SUFFIXES|TESTS(?:_ENVIRONMENT)?|TEXI2(?:DVI|PDF)|TEXINFO_TEX|VALAC)\\s*([\\+\\?:]?=)"
-    end: "(?<!\\\\)\\n$"
+    begin: ^ *(AM_(?:DEFAULT_SOURCE_EXT|DISTCHECK_CONFIGURE_FLAGS|TESTS_(?:ENVIRONMENT|FD_REDIRECT))|AUTOMAKE_OPTIONS|BUILT_SOURCES|CC|CLASSPATH_ENV|(?:DIST|MAINTAINER|MOSTLY)?CLEANFILES|COMPILE|(?:CXX|FC|OBJC|UPC)(?:COMPILE|LINK)?|DEFAULT_INCLUDES|DEFS|DVIPS|ETAGS_ARGS|EXTRA_DIST|F77(?:COMPILE)?|FLINK|INCLUDE|JAVAC|JAVAROOT|LIBS|LINK|(?:[A-Z]+_)?LOG_COMPILER|MAKEINFO(?:HTML)?|(?:OMIT|TAGS)_DEPENDENCIES|(?:DIST_)?SUBDIRS|SUFFIXES|TESTS(?:_ENVIRONMENT)?|TEXI2(?:DVI|PDF)|TEXINFO_TEX|VALAC)\s*([\+\?:]?=)
+    end: (?<!\\)\n$
     beginCaptures:
       '1':
         name: keyword.other.automake
@@ -110,8 +115,8 @@ repository:
       target (e.g. noinst), a dir target (e.g. bin), or a user-defined dir, then finally
       a _PRIMARY'
     name: meta.assignment.primary.automake
-    begin: "^ *(?:((?:(?:(?:no)?dist|no(?:base|trans))_)*)(?:(noinst|check|EXTRA)|(s?bin|(?:pkg)?lib(?:exec)?|(?:pkg)?data|(?:pkg|old)?include|dataroot|sysconf|(?:shared|local)state|doc|info|html|dvi|pdf|ps|lisp|locale|man[1-8]?(?:ext)?|src|(?:pkg)?python|(?:pkg)?pyexec)|([\\w@]+))(_(?:PROGRAMS|(?:LT)?LIBRARIES|LISP|PYTHON|JAVA|SCRIPTS|DATA|HEADERS|MANS|TEXINFOS)))\\s*([\\+\\?:]?=)"
-    end: "(?<!\\\\)\\n$"
+    begin: ^ *(?:((?:(?:(?:no)?dist|no(?:base|trans))_)*)(?:(noinst|check|EXTRA)|(s?bin|(?:pkg)?lib(?:exec)?|(?:pkg)?data|(?:pkg|old)?include|dataroot|sysconf|(?:shared|local)state|doc|info|html|dvi|pdf|ps|lisp|locale|man[1-8]?(?:ext)?|src|(?:pkg)?python|(?:pkg)?pyexec)|([\w@]+))(_(?:PROGRAMS|(?:LT)?LIBRARIES|LISP|PYTHON|JAVA|SCRIPTS|DATA|HEADERS|MANS|TEXINFOS)))\s*([\+\?:]?=)
+    end: (?<!\\)\n$
     beginCaptures:
       '1':
         name: keyword.other.prefix.automake
@@ -131,8 +136,8 @@ repository:
     comment: 'Assignment to a secondary: any number of prefix_ or EXTRA_, then the
       canonicalized_program_name, and finally a _SECONDARY'
     name: meta.assignment.secondary.automake
-    begin: "^ *((?:(?:(?:no)?dist|no(?:base|trans)|EXTRA)_)*)([\\w@]+)(_(?:AR|DEPENDENCIES|LDADD|LIBADD|LINK|SHORTNAME|SOURCES|(?:C|CCAS|CPP|CXX|F|GCJ|JAVAC|L|LD|LIBTOOL|(?:[A-Z]+_)?LOG|MAKEINFO(?:HTML)?|OBJC|R|UPC|VALA|Y)FLAGS))\\s*([\\+\\?:]?=)"
-    end: "(?<!\\\\)\\n$"
+    begin: ^ *((?:(?:(?:no)?dist|no(?:base|trans)|EXTRA)_)*)([\w@]+)(_(?:AR|DEPENDENCIES|LDADD|LIBADD|LINK|SHORTNAME|SOURCES|(?:C|CCAS|CPP|CXX|F|GCJ|JAVAC|L|LD|LIBTOOL|(?:[A-Z]+_)?LOG|MAKEINFO(?:HTML)?|OBJC|R|UPC|VALA|Y)FLAGS))\s*([\+\?:]?=)
+    end: (?<!\\)\n$
     beginCaptures:
       '1':
         name: keyword.other.prefix.automake
@@ -147,8 +152,8 @@ repository:
   dir-assignment:
     comment: Assignment to a directory variable (e.g. foobardir)
     name: meta.assignment.directory.automake
-    begin: "^ *([\\w@]+)(dir)\\s*([\\+\\?:]?=)"
-    end: "(?<!\\\\)\\n$"
+    begin: ^ *([\w@]+)(dir)\s*([\+\?:]?=)
+    end: (?<!\\)\n$
     beginCaptures:
       '1':
         name: variable.other.directory.automake
@@ -182,13 +187,13 @@ patterns:
 - include: "#comment"
 - include: "#special-assignment"
 - name: meta.assignment.automake
-  begin: "^([a-zA-Z_@][\\w@]*)\\s*([\\+\\?:]?=)"
+  begin: ^([a-zA-Z_@][\w@]*)\s*([\+\?:]?=)
   beginCaptures:
     '1':
       name: variable.other.automake
     '2':
       name: keyword.operator.assignment.automake
-  end: "(?<!\\\\)\\n$"
+  end: (?<!\\)\n$
   patterns:
   - include: "#assignment-rhs"
   - include: "#comment"
