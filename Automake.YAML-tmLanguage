@@ -16,12 +16,7 @@ repository:
     comment: Copy of Makefile
     begin: \$\(
     end: \)
-    beginCaptures:
-      '0':
-        name: keyword.operator.makefile
-    endCaptures:
-      '0':
-        name: keyword.operator.makefile
+    name: string.interpolated.makefile
     contentName: variable.other.makefile
     patterns:
     - include: "$self"
@@ -34,6 +29,12 @@ repository:
           name: keyword.operator.substitution.makefile
     - name: support.function.makefile
       match: (?<=\$\()(addprefix|addsuffix|basename|call|dir|error|filter(-out)?|findstring|firstword|foreach|join|notdir|origin|patsubst|shell|sort|strip|subst|suffix|warning|wildcard|words?)\b
+    - name: meta.scope.function.makefile
+      begin: (?<=\$\()(addprefix|addsuffix|and|basename|call|dir|error|eval|file|filter|filter-out|findstring|firstword|flavor|foreach|guile|if|info|join|notdir|or|origin|patsubst|shell|sort|strip|subst|suffix|value|warning|wildcard|word|words)\b
+      end: (?=\))
+      contentName: string.interpolated.makefile
+      patterns:
+      - include: $self
   automatic-variable:
     comment: Copy of Makefile
     name: variable.language.makefile
@@ -182,6 +183,12 @@ repository:
     - include: "#single-quoted-string"
     - include: "#backtick-subshell"
     - include: "#substitution"
+    - include: "#escaped-newline"
+    - include: "#comment"
+  escaped-newline:
+    name: constant.character.escape.automake
+    match: \\$
+    patterns: []
 patterns:
 - include: "#no-subst-comment"
 - include: "#comment"
