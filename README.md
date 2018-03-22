@@ -22,13 +22,15 @@ inside vscode. Then:
     npm start
 
 Using `npm start`, the `.YAML-tmLanguage` files are automatically built
-into `.tmLanguage` and `.JSON-tmLanguage`. Whenever you change the YAML files,
-it will rebuild the JSON and YAML files. Then do ⇧⌘P and `Reload Window`
-to observe the changes on a m4/Makefile/Makefile.am file.
+into `.tmLanguage` and `.JSON-tmLanguage`. Whenever you change the YAML
+files, it will rebuild the JSON and YAML files. Then do ⇧⌘P and `Reload
+Window` to observe the changes on a m4/Makefile/Makefile.am file.
 
-In order to have a proper Yaml autocompletion (I know everybody loves the
-vscode's JSON autocompletion and schema helpers), I recommend to install the
-Red Hat YAML extension and add the following to your settings:
+I chose to convert from JSON to YAML for three reasons: YAML is way less
+verbose, does not need two backslashes for each backslash and has proper
+comments. In order to have a proper Yaml autocompletion (I know everybody
+loves the vscode's JSON autocompletion and schema helpers), I recommend to
+install the Red Hat YAML extension and add the following to your settings:
 
 ```json
 "yaml.schemas": {
