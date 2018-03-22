@@ -7,11 +7,13 @@ fileTypes:
 - am.inc
 - Makefile.in
 repository:
+
   escaped-char:
     comment: Copy of Makefile
     name: constant.character.escape.makefile
     match: \\.
     patterns: []
+
   variable-reference:
     comment: Copy of Makefile
     begin: \$\(
@@ -35,17 +37,20 @@ repository:
       contentName: string.interpolated.makefile
       patterns:
       - include: $self
+
   automatic-variable:
     comment: Copy of Makefile
     name: variable.language.makefile
     match: \$([@%<?^+*]|\([@*%<^?][DF]\))
     patterns: []
+
   shell-variable-reference:
     comment: Copy of Makefile
     begin: \$\{
     end: \}
     contentName: variable.other.shell.makefile
     patterns: []
+
   double-quoted-string:
     comment: Copy of Makefile
     name: string.quoted.double.makefile
@@ -53,6 +58,7 @@ repository:
     end: \"
     patterns:
     - include: "#escaped-char"
+
   single-quoted-string:
     comment: Copy of Makefile
     name: string.quoted.single.makefile
@@ -60,6 +66,7 @@ repository:
     end: '
     patterns:
     - include: "#escaped-char"
+
   backtick-subshell:
     comment: Copy of Makefile
     begin: '`'
@@ -68,11 +75,13 @@ repository:
     patterns:
     - include: source.shell
     - include: "#variable-reference"
+
   substitution:
     comment: Substitutions from AC_SUBST
     name: string.interpolated.substitution.automake
     match: '@\w+@'
     patterns: []
+
   no-subst-comment:
     comment: 'Lines starting with ## are not copied into Makefile.in, and no substitutions
       are performed'
@@ -80,13 +89,15 @@ repository:
     begin: ^##
     end: $
     patterns: []
+
   comment:
     comment: Copy of makefile's comment, but substitutions are allowed
-    begin: #
+    begin: '#'
     end: $
     name: comment.line.number-sign.automake
     patterns:
     - include: "#substitution"
+
   flags-assignment:
     comment: Assignment to a FLAGS variable
     name: meta.assignment.flags.automake
@@ -99,6 +110,7 @@ repository:
         name: keyword.operator.assignment.automake
     patterns:
     - include: "#assignment-rhs"
+
   keyword-assignment:
     comment: Assignment to a non-primary, secondary, flags, or dir variable
     name: meta.assignment.keyword.automake
@@ -111,6 +123,7 @@ repository:
         name: keyword.operator.assignment.automake
     patterns:
     - include: "#assignment-rhs"
+
   primary-assignment:
     comment: 'Assignment to a primary: any number of prefixes_, then either a nondir
       target (e.g. noinst), a dir target (e.g. bin), or a user-defined dir, then finally
@@ -133,6 +146,7 @@ repository:
         name: keyword.operator.assignment.automake
     patterns:
     - include: "#assignment-rhs"
+
   secondary-assignment:
     comment: 'Assignment to a secondary: any number of prefix_ or EXTRA_, then the
       canonicalized_program_name, and finally a _SECONDARY'
@@ -150,6 +164,7 @@ repository:
         name: keyword.operator.assignment.automake
     patterns:
     - include: "#assignment-rhs"
+
   dir-assignment:
     comment: Assignment to a directory variable (e.g. foobardir)
     name: meta.assignment.directory.automake
@@ -164,6 +179,7 @@ repository:
         name: keyword.operator.assignment.automake
     patterns:
     - include: "#assignment-rhs"
+
   special-assignment:
     comment: The contexts listed here represent an assignment to an Automake variable
     patterns:
@@ -172,6 +188,7 @@ repository:
     - include: "#primary-assignment"
     - include: "#secondary-assignment"
     - include: "#dir-assignment"
+
   assignment-rhs:
     comment: What is allowed on the right-hand-side of an assignment
     patterns:
@@ -185,14 +202,19 @@ repository:
     - include: "#substitution"
     - include: "#escaped-newline"
     - include: "#comment"
+
   escaped-newline:
     name: constant.character.escape.automake
     match: \\$
     patterns: []
+
+
 patterns:
+
 - include: "#no-subst-comment"
 - include: "#comment"
 - include: "#special-assignment"
+
 - name: meta.assignment.automake
   begin: ^([a-zA-Z_@][\w@]*)\s*([\+\?:]?=)
   beginCaptures:
@@ -204,8 +226,11 @@ patterns:
   patterns:
   - include: "#assignment-rhs"
   - include: "#comment"
+
 - comment: instead of using source.makefile2, we use vscode's Makefile (works better)
   include: source.makefile
+
 - include: "#substitution"
+
 uuid: db931ddb-e919-4736-bd7d-fcf6e1ceca7f
 
