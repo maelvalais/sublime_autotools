@@ -46,6 +46,14 @@ the sublime's one is kind of buggy).
 
 # Changelog
 
+## v0.0.5
+- Automake grammar: fixed bug with `foo: $(VAR:%.h=%.h)`
+- Makefile2: re-include it into the extension. The Automake grammar is actually
+  working better using makefile2.
+- Many small improvements to Makefile2 and Automake, e.g., `$(if a,b)`
+  properly colored.
+- Moved from JSON grammar files to YAML.
+
 ## v0.0.4
 - Use vscode's default Makefile syntax grammar file instead of the sublime's
   one (Makefile2). This is because Makefile2 was buggy and vscode's one works
