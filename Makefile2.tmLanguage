@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
+    <key>$schema</key>
+    <string>https://cdn.rawgit.com/martinring/tmlanguage/master/tmlanguage.json</string>
     <key>scopeName</key>
     <string>source.makefile2</string>
     <key>fileTypes</key>
@@ -23,6 +25,8 @@
         <string>constant.character.escape.makefile</string>
         <key>match</key>
         <string>\\.</string>
+        <key>patterns</key>
+        <array/>
       </dict>
       <key>variable-reference</key>
       <dict>
@@ -30,20 +34,12 @@
         <string>\$\(</string>
         <key>end</key>
         <string>\)</string>
-        <key>beginCaptures</key>
+        <key>captures</key>
         <dict>
           <key>0</key>
           <dict>
             <key>name</key>
-            <string>keyword.operator.makefile</string>
-          </dict>
-        </dict>
-        <key>endCaptures</key>
-        <dict>
-          <key>0</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.operator.makefile</string>
+            <string>string.interpolated.makefile</string>
           </dict>
         </dict>
         <key>contentName</key>
@@ -79,6 +75,23 @@
             <key>match</key>
             <string>(?&lt;=\$\()(addprefix|addsuffix|and|basename|call|dir|error|eval|file|filter|filter-out|findstring|firstword|flavor|foreach|guile|if|info|join|notdir|or|origin|patsubst|shell|sort|strip|subst|suffix|value|warning|wildcard|word|words)\b</string>
           </dict>
+          <dict>
+            <key>name</key>
+            <string>meta.scope.function.makefile</string>
+            <key>begin</key>
+            <string>(?&lt;=\$\()(addprefix|addsuffix|and|basename|call|dir|error|eval|file|filter|filter-out|findstring|firstword|flavor|foreach|guile|if|info|join|notdir|or|origin|patsubst|shell|sort|strip|subst|suffix|value|warning|wildcard|word|words)\b</string>
+            <key>end</key>
+            <string>(?=\))</string>
+            <key>contentName</key>
+            <string>string.interpolated.makefile</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>$self</string>
+              </dict>
+            </array>
+          </dict>
         </array>
       </dict>
       <key>automatic-variable</key>
@@ -87,6 +100,8 @@
         <string>variable.language.makefile</string>
         <key>match</key>
         <string>\$([@%&lt;?^+*]|\([@*%&lt;^?][DF]\))</string>
+        <key>patterns</key>
+        <array/>
       </dict>
       <key>shell-variable-reference</key>
       <dict>
@@ -96,15 +111,17 @@
         <string>\}</string>
         <key>contentName</key>
         <string>variable.other.shell.makefile</string>
+        <key>patterns</key>
+        <array/>
       </dict>
       <key>double-quoted-string</key>
       <dict>
         <key>name</key>
         <string>string.quoted.double.makefile</string>
         <key>begin</key>
-        <string>"</string>
+        <string>\"</string>
         <key>end</key>
-        <string>"</string>
+        <string>\"</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -118,9 +135,7 @@
         <key>name</key>
         <string>string.quoted.single.makefile</string>
         <key>begin</key>
-        <string>'</string>
-        <key>end</key>
-        <string>'</string>
+        <string> end: </string>
         <key>patterns</key>
         <array>
           <dict>
@@ -235,20 +250,22 @@
         <key>begin</key>
         <string>^([^\t\:][^\:]*)\:</string>
         <key>end</key>
-        <string>^(?!	)</string>
+        <string>^(?!\t)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>entity.name.function.rule.makefile</string>
+            <string>meta.rule.target.makefile</string>
+            <key>patterns</key>
+            <array/>
           </dict>
         </dict>
         <key>patterns</key>
         <array>
           <dict>
             <key>name</key>
-            <string>meta.prerequisites.makefile</string>
+            <string>meta.rule.prerequisites.makefile</string>
             <key>begin</key>
             <string>(?&lt;=:)(?=.)</string>
             <key>end</key>
@@ -258,6 +275,10 @@
               <dict>
                 <key>include</key>
                 <string>#variable-reference</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#automatic-variable</string>
               </dict>
             </array>
           </dict>

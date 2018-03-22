@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
+    <key>$schema</key>
+    <string>https://cdn.rawgit.com/martinring/tmlanguage/master/tmlanguage.json</string>
     <key>name</key>
     <string>Automake</string>
     <key>scopeName</key>
@@ -22,6 +24,8 @@
         <string>constant.character.escape.makefile</string>
         <key>match</key>
         <string>\\.</string>
+        <key>patterns</key>
+        <array/>
       </dict>
       <key>variable-reference</key>
       <dict>
@@ -31,22 +35,8 @@
         <string>\$\(</string>
         <key>end</key>
         <string>\)</string>
-        <key>beginCaptures</key>
-        <dict>
-          <key>0</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.operator.makefile</string>
-          </dict>
-        </dict>
-        <key>endCaptures</key>
-        <dict>
-          <key>0</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.operator.makefile</string>
-          </dict>
-        </dict>
+        <key>name</key>
+        <string>string.interpolated.makefile</string>
         <key>contentName</key>
         <string>variable.other.makefile</string>
         <key>patterns</key>
@@ -80,6 +70,23 @@
             <key>match</key>
             <string>(?&lt;=\$\()(addprefix|addsuffix|basename|call|dir|error|filter(-out)?|findstring|firstword|foreach|join|notdir|origin|patsubst|shell|sort|strip|subst|suffix|warning|wildcard|words?)\b</string>
           </dict>
+          <dict>
+            <key>name</key>
+            <string>meta.scope.function.makefile</string>
+            <key>begin</key>
+            <string>(?&lt;=\$\()(addprefix|addsuffix|and|basename|call|dir|error|eval|file|filter|filter-out|findstring|firstword|flavor|foreach|guile|if|info|join|notdir|or|origin|patsubst|shell|sort|strip|subst|suffix|value|warning|wildcard|word|words)\b</string>
+            <key>end</key>
+            <string>(?=\))</string>
+            <key>contentName</key>
+            <string>string.interpolated.makefile</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>$self</string>
+              </dict>
+            </array>
+          </dict>
         </array>
       </dict>
       <key>automatic-variable</key>
@@ -90,6 +97,8 @@
         <string>variable.language.makefile</string>
         <key>match</key>
         <string>\$([@%&lt;?^+*]|\([@*%&lt;^?][DF]\))</string>
+        <key>patterns</key>
+        <array/>
       </dict>
       <key>shell-variable-reference</key>
       <dict>
@@ -101,6 +110,8 @@
         <string>\}</string>
         <key>contentName</key>
         <string>variable.other.shell.makefile</string>
+        <key>patterns</key>
+        <array/>
       </dict>
       <key>double-quoted-string</key>
       <dict>
@@ -109,9 +120,9 @@
         <key>name</key>
         <string>string.quoted.double.makefile</string>
         <key>begin</key>
-        <string>"</string>
+        <string>\"</string>
         <key>end</key>
-        <string>"</string>
+        <string>\"</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -127,9 +138,7 @@
         <key>name</key>
         <string>string.quoted.single.makefile</string>
         <key>begin</key>
-        <string>'</string>
-        <key>end</key>
-        <string>'</string>
+        <string> end: </string>
         <key>patterns</key>
         <array>
           <dict>
@@ -168,6 +177,8 @@
         <string>string.interpolated.substitution.automake</string>
         <key>match</key>
         <string>@\w+@</string>
+        <key>patterns</key>
+        <array/>
       </dict>
       <key>no-subst-comment</key>
       <dict>
@@ -179,13 +190,14 @@
         <string>^##</string>
         <key>end</key>
         <string>$</string>
+        <key>patterns</key>
+        <array/>
       </dict>
       <key>comment</key>
       <dict>
         <key>comment</key>
         <string>Copy of makefile's comment, but substitutions are allowed</string>
         <key>begin</key>
-        <string>#</string>
         <key>end</key>
         <string>$</string>
         <key>name</key>
@@ -454,7 +466,24 @@
             <key>include</key>
             <string>#substitution</string>
           </dict>
+          <dict>
+            <key>include</key>
+            <string>#escaped-newline</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
         </array>
+      </dict>
+      <key>escaped-newline</key>
+      <dict>
+        <key>name</key>
+        <string>constant.character.escape.automake</string>
+        <key>match</key>
+        <string>\\$</string>
+        <key>patterns</key>
+        <array/>
       </dict>
     </dict>
     <key>patterns</key>
