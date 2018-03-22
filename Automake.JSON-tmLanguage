@@ -25,6 +25,22 @@
 					"include": "$self"
 				},
 				{
+					"name": "meta.scope.function.makefile",
+					"begin": "(?<=\\$\\()(addprefix|addsuffix|and|basename|call|dir|error|eval|file|filter|filter-out|findstring|firstword|flavor|foreach|guile|if|info|join|notdir|or|origin|patsubst|shell|sort|strip|subst|suffix|value|warning|wildcard|word|words)\\b",
+					"end": "(?=\\))",
+					"beginCaptures": {
+						"1": {
+							"name": "support.function.makefile"
+						}
+					},
+					"contentName": "string.interpolated.makefile",
+					"patterns": [
+						{
+							"include": "$self"
+						}
+					]
+				},
+				{
 					"name": "string.other.substitution.makefile",
 					"match": "(:)[a-zA-Z0-9_%.]+(=)[a-zA-Z0-9_%.]+",
 					"captures": {
@@ -35,21 +51,6 @@
 							"name": "keyword.operator.substitution.makefile"
 						}
 					}
-				},
-				{
-					"name": "support.function.makefile",
-					"match": "(?<=\\$\\()(addprefix|addsuffix|basename|call|dir|error|filter(-out)?|findstring|firstword|foreach|join|notdir|origin|patsubst|shell|sort|strip|subst|suffix|warning|wildcard|words?)\\b"
-				},
-				{
-					"name": "meta.scope.function.makefile",
-					"begin": "(?<=\\$\\()(addprefix|addsuffix|and|basename|call|dir|error|eval|file|filter|filter-out|findstring|firstword|flavor|foreach|guile|if|info|join|notdir|or|origin|patsubst|shell|sort|strip|subst|suffix|value|warning|wildcard|word|words)\\b",
-					"end": "(?=\\))",
-					"contentName": "string.interpolated.makefile",
-					"patterns": [
-						{
-							"include": "$self"
-						}
-					]
 				}
 			]
 		},
@@ -65,6 +66,24 @@
 			"end": "\\}",
 			"contentName": "variable.other.shell.makefile",
 			"patterns": []
+		},
+		"simple-variable": {
+			"name": "variable.other.shell.makefile",
+			"match": "\\$\\$?\\w+",
+			"patterns": []
+		},
+		"variables": {
+			"patterns": [
+				{
+					"include": "#shell-variable-variable"
+				},
+				{
+					"include": "#variable-reference"
+				},
+				{
+					"include": "#simple-variable"
+				}
+			]
 		},
 		"double-quoted-string": {
 			"comment": "Copy of Makefile",
@@ -97,7 +116,7 @@
 					"include": "source.shell"
 				},
 				{
-					"include": "#variable-reference"
+					"include": "#variables"
 				}
 			]
 		},
@@ -116,7 +135,7 @@
 		},
 		"comment": {
 			"comment": "Copy of makefile's comment, but substitutions are allowed",
-			"begin": null,
+			"begin": "#",
 			"end": "$",
 			"name": "comment.line.number-sign.automake",
 			"patterns": [
@@ -268,10 +287,7 @@
 					"include": "#automatic-variable"
 				},
 				{
-					"include": "#variable-reference"
-				},
-				{
-					"include": "#shell-variable-reference"
+					"include": "#variables"
 				},
 				{
 					"include": "#escaped-char"
@@ -334,8 +350,7 @@
 			]
 		},
 		{
-			"comment": "instead of using source.makefile2, we use vscode's Makefile (works better)",
-			"include": "source.makefile"
+			"include": "source.makefile2"
 		},
 		{
 			"include": "#substitution"
