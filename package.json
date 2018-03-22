@@ -3,7 +3,7 @@
     "displayName": "autoconf",
     "description": "Syntax support for the Autoconf M4 and Automake files (Autotools)",
     "version": "0.0.4",
-    "icon": "https://github.com/maelvalais/vscode_autotools/blob/master/icon.png",
+    "icon": "icon.png",
     "publisher": "maelvalais",
     "repository": "https://github.com/maelvalais/vscode_autotools",
     "license": "MIT",
@@ -40,6 +40,15 @@
                     "Makefile.in"
                 ],
                 "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "makefile2",
+                "aliases": [
+                    "Makefile2",
+                    "makefile2"
+                ],
+                "extensions": [],
+                "configuration": "./language-configuration.json"
             }
         ],
         "grammars": [
@@ -52,12 +61,18 @@
                 "language": "automake",
                 "scopeName": "source.automake",
                 "path": "./Automake.tmLanguage"
+            },
+            {
+                "language": "makefile2",
+                "scopeName": "source.makefile2",
+                "path": "./Makefile2.tmLanguage"
             }
         ]
     },
     "devDependencies": {
         "plist": "latest",
-        "glob-watcher": "^4.0.0"
+        "glob-watcher": "^4.0.0",
+        "js-yaml": "latest"
     },
     "scripts": {
         "start": "node build.js -w",

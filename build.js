@@ -4,14 +4,18 @@ var fs = require("fs");
 var plist = require('plist');
 var watch = require('glob-watcher');
 var path = require('path');
+var yaml = require('js-yaml');
 
-var inputs = ["Autoconf.JSON-tmLanguage", "Automake.JSON-tmLanguage", "Makefile2.JSON-tmLanguage"];
+var inputs = ["Autoconf.YAML-tmLanguage", "Automake.YAML-tmLanguage", "Makefile2.YAML-tmLanguage"];
 
 var update = function(input) {
-    var output = input.replace("JSON-tmLanguage", "tmLanguage")
-    console.log(input + " -> " + output);
+    var output = input.replace("YAML-tmLanguage", "JSON-tmLanguage");
+    var output2 = input.replace("YAML-tmLanguage", "tmLanguage");
+    console.log(input + " -> " + output + ", " + output2);
     try {
-        fs.writeFileSync(output, plist.build(JSON.parse(fs.readFileSync(input, "utf8"))));
+        var input_txt = yaml.safeLoad(fs.readFileSync(input, "utf8"));
+        fs.writeFileSync(output, JSON.stringify(input_txt, null, '\t'));
+        fs.writeFileSync(output2, plist.build(input_txt));
     } catch (e) {
         console.error("   error: "+e);
     }

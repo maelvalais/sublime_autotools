@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
+    <key>$schema</key>
+    <string>~/prog/schema-tmlanguage.json</string>
     <key>scopeName</key>
     <string>source.makefile2</string>
     <key>fileTypes</key>
@@ -23,6 +25,8 @@
         <string>constant.character.escape.makefile</string>
         <key>match</key>
         <string>\\.</string>
+        <key>patterns</key>
+        <array/>
       </dict>
       <key>variable-reference</key>
       <dict>
@@ -30,20 +34,12 @@
         <string>\$\(</string>
         <key>end</key>
         <string>\)</string>
-        <key>beginCaptures</key>
+        <key>captures</key>
         <dict>
           <key>0</key>
           <dict>
             <key>name</key>
-            <string>keyword.operator.makefile</string>
-          </dict>
-        </dict>
-        <key>endCaptures</key>
-        <dict>
-          <key>0</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.operator.makefile</string>
+            <string>string.interpolated.makefile</string>
           </dict>
         </dict>
         <key>contentName</key>
@@ -79,6 +75,23 @@
             <key>match</key>
             <string>(?&lt;=\$\()(addprefix|addsuffix|and|basename|call|dir|error|eval|file|filter|filter-out|findstring|firstword|flavor|foreach|guile|if|info|join|notdir|or|origin|patsubst|shell|sort|strip|subst|suffix|value|warning|wildcard|word|words)\b</string>
           </dict>
+          <dict>
+            <key>name</key>
+            <string>meta.scope.function.makefile</string>
+            <key>begin</key>
+            <string>(?&lt;=\$\()(addprefix|addsuffix|and|basename|call|dir|error|eval|file|filter|filter-out|findstring|firstword|flavor|foreach|guile|if|info|join|notdir|or|origin|patsubst|shell|sort|strip|subst|suffix|value|warning|wildcard|word|words)\b</string>
+            <key>end</key>
+            <string>(?=\))</string>
+            <key>contentName</key>
+            <string>string.interpolated.makefile</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>$self</string>
+              </dict>
+            </array>
+          </dict>
         </array>
       </dict>
       <key>automatic-variable</key>
@@ -87,6 +100,8 @@
         <string>variable.language.makefile</string>
         <key>match</key>
         <string>\$([@%&lt;?^+*]|\([@*%&lt;^?][DF]\))</string>
+        <key>patterns</key>
+        <array/>
       </dict>
       <key>shell-variable-reference</key>
       <dict>
@@ -96,15 +111,44 @@
         <string>\}</string>
         <key>contentName</key>
         <string>variable.other.shell.makefile</string>
+        <key>patterns</key>
+        <array/>
+      </dict>
+      <key>simple-variable</key>
+      <dict>
+        <key>name</key>
+        <string>variable.other.shell.makefile</string>
+        <key>match</key>
+        <string>\$\$?\w+</string>
+        <key>patterns</key>
+        <array/>
+      </dict>
+      <key>variables</key>
+      <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#shell-variable-variable</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#variable-reference</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#simple-variable</string>
+          </dict>
+        </array>
       </dict>
       <key>double-quoted-string</key>
       <dict>
         <key>name</key>
         <string>string.quoted.double.makefile</string>
         <key>begin</key>
-        <string>"</string>
+        <string>\"</string>
         <key>end</key>
-        <string>"</string>
+        <string>\"</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -118,9 +162,7 @@
         <key>name</key>
         <string>string.quoted.single.makefile</string>
         <key>begin</key>
-        <string>'</string>
-        <key>end</key>
-        <string>'</string>
+        <string> end: </string>
         <key>patterns</key>
         <array>
           <dict>
@@ -149,10 +191,10 @@
           </dict>
         </array>
       </dict>
-    </dict>
-    <key>patterns</key>
-    <array>
+      <key>comment</key>
       <dict>
+        <key>name</key>
+        <string>comment.line.number-sign.makefile</string>
         <key>begin</key>
         <string>#</string>
         <key>beginCaptures</key>
@@ -165,8 +207,6 @@
         </dict>
         <key>end</key>
         <string>$\n?</string>
-        <key>name</key>
-        <string>comment.line.number-sign.makefile</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -177,6 +217,7 @@
           </dict>
         </array>
       </dict>
+      <key>assignment</key>
       <dict>
         <key>name</key>
         <string>meta.assignment.makefile</string>
@@ -205,11 +246,7 @@
           </dict>
           <dict>
             <key>include</key>
-            <string>#variable-reference</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#shell-variable-reference</string>
+            <string>#variables</string>
           </dict>
           <dict>
             <key>include</key>
@@ -229,26 +266,29 @@
           </dict>
         </array>
       </dict>
+      <key>rule</key>
       <dict>
         <key>name</key>
         <string>meta.rule.makefile</string>
         <key>begin</key>
         <string>^([^\t\:][^\:]*)\:</string>
         <key>end</key>
-        <string>^(?!	)</string>
+        <string>^(?!\t)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>entity.name.function.rule.makefile</string>
+            <string>meta.rule.target.makefile</string>
+            <key>patterns</key>
+            <array/>
           </dict>
         </dict>
         <key>patterns</key>
         <array>
           <dict>
             <key>name</key>
-            <string>meta.prerequisites.makefile</string>
+            <string>meta.rule.prerequisites.makefile</string>
             <key>begin</key>
             <string>(?&lt;=:)(?=.)</string>
             <key>end</key>
@@ -258,6 +298,10 @@
               <dict>
                 <key>include</key>
                 <string>#variable-reference</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#automatic-variable</string>
               </dict>
             </array>
           </dict>
@@ -275,6 +319,154 @@
           </dict>
         </array>
       </dict>
+      <key>rule2</key>
+      <dict>
+        <key>name</key>
+        <string>meta.scope.target.makefile</string>
+        <key>begin</key>
+        <string>^(?!\t)([^:]*)(:)(?!\=)</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>captures</key>
+                <dict>
+                  <key>1</key>
+                  <dict>
+                    <key>name</key>
+                    <string>support.function.target.$1.makefile</string>
+                  </dict>
+                </dict>
+                <key>match</key>
+                <string>^\s*(\.(PHONY|SUFFIXES|DEFAULT|PRECIOUS|INTERMEDIATE|SECONDARY|SECONDEXPANSION|DELETE_ON_ERROR|IGNORE|LOW_RESOLUTION_TIME|SILENT|EXPORT_ALL_VARIABLES|NOTPARALLEL|ONESHELL|POSIX))\s*$</string>
+              </dict>
+              <dict>
+                <key>begin</key>
+                <string>(?=\S)</string>
+                <key>end</key>
+                <string>(?=\s|$)</string>
+                <key>name</key>
+                <string>entity.name.function.target.makefile</string>
+                <key>patterns</key>
+                <array>
+                  <dict>
+                    <key>include</key>
+                    <string>#variables</string>
+                  </dict>
+                  <dict>
+                    <key>match</key>
+                    <string>%</string>
+                    <key>name</key>
+                    <string>constant.other.placeholder.makefile</string>
+                  </dict>
+                </array>
+              </dict>
+            </array>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.separator.key-value.makefile</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>[^\\]$</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>begin</key>
+            <string>\G</string>
+            <key>end</key>
+            <string>(?=[^\\])$</string>
+            <key>name</key>
+            <string>meta.scope.prerequisites.makefile</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>match</key>
+                <string>\\\n</string>
+                <key>name</key>
+                <string>constant.character.escape.continuation.makefile</string>
+              </dict>
+              <dict>
+                <key>match</key>
+                <string>%|\*</string>
+                <key>name</key>
+                <string>constant.other.placeholder.makefile</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#comment</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#variables</string>
+              </dict>
+            </array>
+          </dict>
+        </array>
+      </dict>
+      <key>recipe</key>
+      <dict>
+        <key>name</key>
+        <string>meta.scope.recipe.makefile</string>
+        <key>begin</key>
+        <string>^\t</string>
+        <key>end</key>
+        <string>^[^\t]</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>captures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>patterns</key>
+                <array>
+                  <dict>
+                    <key>match</key>
+                    <string>\\\n</string>
+                    <key>name</key>
+                    <string>constant.character.escape.continuation.makefile</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#variables</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>source.shell</string>
+                  </dict>
+                </array>
+              </dict>
+            </dict>
+            <key>match</key>
+            <string>.+\n?</string>
+          </dict>
+        </array>
+      </dict>
+    </dict>
+    <key>patterns</key>
+    <array>
+      <dict>
+        <key>include</key>
+        <string>#comment</string>
+      </dict>
+      <dict>
+        <key>include</key>
+        <string>#assignment</string>
+      </dict>
+      <dict>
+        <key>include</key>
+        <string>#rule2</string>
+      </dict>
+      <dict>
+        <key>include</key>
+        <string>#recipe</string>
+      </dict>
       <dict>
         <key>match</key>
         <string>^(\-??include|if|ifeq|ifneq|ifdef|ifndef|else|endif|vpath|export|unexport|define|endef|override)\b</string>
@@ -283,7 +475,7 @@
       </dict>
       <dict>
         <key>include</key>
-        <string>#variable-reference</string>
+        <string>#variables</string>
       </dict>
     </array>
     <key>uuid</key>
