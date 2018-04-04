@@ -46,6 +46,10 @@ the sublime's one is kind of buggy).
 
 # Changelog
 
+## v0.0.6
+- Automake: fix comments not being highlighted when it starts at the beginning
+  of a line and is interleaved with a recipe.
+
 ## v0.0.5
 - Automake grammar: fixed bug with `foo: $(VAR:%.h=%.h)`
 - Makefile2: re-include it into the extension. The Automake grammar is actually
