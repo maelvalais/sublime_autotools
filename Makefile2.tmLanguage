@@ -416,7 +416,7 @@
         <key>begin</key>
         <string>^\t</string>
         <key>end</key>
-        <string>^[^\t]</string>
+        <string>^(?=[^\t])</string>
         <key>patterns</key>
         <array>
           <dict>

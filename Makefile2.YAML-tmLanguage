@@ -161,7 +161,7 @@ repository:
   recipe:
     name: meta.scope.recipe.makefile
     begin: ^\t
-    end: ^[^\t]
+    end: ^(?=[^\t])
     patterns:
     - captures:
         '0':
