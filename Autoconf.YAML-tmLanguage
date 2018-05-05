@@ -775,15 +775,13 @@ repository:
     patterns:
     - name: string.quoted.double.shell
       begin: \$?"
-      end: \"
+      end: '"'
       beginCaptures:
-        '0':
-          name: punctuation.definition.string.begin.shell
+        '0': {name: punctuation.definition.string.begin.shell}
       endCaptures:
-        '0':
-          name: punctuation.definition.string.end.shell
+        '0': {name: punctuation.definition.string.end.shell}
       patterns:
-      - match: \[\$`"\\n]
+      - match: \\[\$`"\\n]
         name: constant.character.escape.shell
       - include: source.shell.variable
       - include: "#shell-interpolation"
