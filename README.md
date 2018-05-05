@@ -46,6 +46,11 @@ the sublime's one is kind of buggy).
 
 # Changelog
 
+## v0.0.7
+- Autoconf M4 (configure.ac): fix \" not being properly escaped in a string.
+  Note for now, that variables won't (for some reason) be highlighted in
+  strings. I couldn't find why.
+
 ## v0.0.6
 - Automake: fix comments not being highlighted when it starts at the beginning
   of a line and is interleaved with a recipe.
