@@ -76,6 +76,6 @@
     },
     "scripts": {
         "start": "node build.js -w",
-        "compile": "node build.js"
+        "build": "node build.js"
     }
 }
