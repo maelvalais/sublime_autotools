@@ -2,7 +2,7 @@
   "name": "autoconf",
   "displayName": "autoconf",
   "description": "Syntax support for the Autoconf M4 and Automake files (Autotools)",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "icon": "icon.png",
   "publisher": "maelvalais",
   "repository": "https://github.com/maelvalais/vscode_autotools",

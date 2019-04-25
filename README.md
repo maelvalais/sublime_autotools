@@ -47,11 +47,17 @@ the sublime's one is kind of buggy).
 
 ## Changelog
 
-### v0.0.8 (unreleased)
+### v0.0.9
 
+- Add [AC_CONFIG_MACRO_DIRS] provided by `automake` which surprisingly
+  exists together with `autoconf`'s [AC_CONFIG_MACRO_DIR]. Change proposed
+  by jannick0.
 - (internal) add the `npm start -- --json` feature that allows people more
   familiar with json to generate tmLanguage from the json file instead of
   the yaml one.
+
+[ac_config_macro_dirs]: https://www.gnu.org/software/automake/manual/html_node/Local-Macros.html
+[ac_config_macro_dir]: https://www.gnu.org/savannah-checkouts/gnu/autoconf/manual/autoconf-2.69/html_node/Input.html#Input.
 
 ### v0.0.7
 
