@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>$schema</key>
-    <string>~/prog/schema-tmlanguage.json</string>
+    <string>https://cdn.rawgit.com/martinring/tmlanguage/master/tmlanguage.json</string>
     <key>scopeName</key>
     <string>source.makefile2</string>
     <key>fileTypes</key>
@@ -162,7 +162,9 @@
         <key>name</key>
         <string>string.quoted.single.makefile</string>
         <key>begin</key>
-        <string> end: </string>
+        <string>'</string>
+        <key>end</key>
+        <string>'</string>
         <key>patterns</key>
         <array>
           <dict>
