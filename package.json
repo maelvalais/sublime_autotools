@@ -2,7 +2,7 @@
   "name": "autoconf",
   "displayName": "autoconf",
   "description": "Syntax support for the Autoconf M4 and Automake files (Autotools)",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "icon": "icon.png",
   "publisher": "maelvalais",
   "repository": "https://github.com/maelvalais/vscode_autotools",
@@ -75,7 +75,8 @@
   "devDependencies": {
     "glob-watcher": "^5.0.3",
     "js-yaml": "^3.13.1",
-    "plist": "latest"
+    "plist": "latest",
+    "prettier": "^1.17.0"
   },
   "scripts": {
     "start": "node build.js -w",
