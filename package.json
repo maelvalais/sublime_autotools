@@ -74,7 +74,9 @@
   },
   "devDependencies": {
     "glob-watcher": "^5.0.3",
+    "husky": "^2.1.0",
     "js-yaml": "^3.13.1",
+    "lint-staged": "^8.1.5",
     "plist": "latest",
     "prettier": "^1.17.0"
   },
@@ -86,5 +88,20 @@
     "id": "3ca928a4-41a2-409c-81be-e58c381fce5a",
     "publisherDisplayName": "maelvalais",
     "publisherId": "3f5c0d22-1c86-4a4a-89cf-469106f50752"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,json,md,json,yaml,yml,YAML-tmLanguage}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.JSON-tmLanguage": [
+      "prettier --write --parser json",
+      "git add"
+    ]
   }
 }
