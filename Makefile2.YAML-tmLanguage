@@ -1,5 +1,4 @@
----
-$schema: https://cdn.rawgit.com/martinring/tmlanguage/master/tmlanguage.json
+$schema: "https://cdn.rawgit.com/martinring/tmlanguage/master/tmlanguage.json"
 scopeName: source.makefile2
 fileTypes:
   - GNUmakefile
@@ -14,64 +13,62 @@ repository:
     name: constant.character.escape.makefile
     match: \\.
     patterns: []
-
   variable-reference:
     begin: \$\(
     end: \)
-    captures: { 0: { name: string.interpolated.makefile } }
+    captures:
+      "0":
+        name: string.interpolated.makefile
     contentName: variable.other.makefile
     patterns:
-      - include: "$self"
+      - include: $self
       - name: string.other.substitution.makefile
-        match: (:)[a-zA-Z0-9_%.]+(=)[a-zA-Z0-9_%.]+
+        match: "(:)[a-zA-Z0-9_%.]+(=)[a-zA-Z0-9_%.]+"
         captures:
-          "1": { name: keyword.operator.substitution.makefile }
-          "2": { name: keyword.operator.substitution.makefile }
+          "1":
+            name: keyword.operator.substitution.makefile
+          "2":
+            name: keyword.operator.substitution.makefile
       - name: support.function.makefile
-        match: (?<=\$\()(addprefix|addsuffix|and|basename|call|dir|error|eval|file|filter|filter-out|findstring|firstword|flavor|foreach|guile|if|info|join|notdir|or|origin|patsubst|shell|sort|strip|subst|suffix|value|warning|wildcard|word|words)\b
+        match: >-
+          (?<=\$\()(addprefix|addsuffix|and|basename|call|dir|error|eval|file|filter|filter-out|findstring|firstword|flavor|foreach|guile|if|info|join|notdir|or|origin|patsubst|shell|sort|strip|subst|suffix|value|warning|wildcard|word|words)\b
       - name: meta.scope.function.makefile
-        begin: (?<=\$\()(addprefix|addsuffix|and|basename|call|dir|error|eval|file|filter|filter-out|findstring|firstword|flavor|foreach|guile|if|info|join|notdir|or|origin|patsubst|shell|sort|strip|subst|suffix|value|warning|wildcard|word|words)\b
+        begin: >-
+          (?<=\$\()(addprefix|addsuffix|and|basename|call|dir|error|eval|file|filter|filter-out|findstring|firstword|flavor|foreach|guile|if|info|join|notdir|or|origin|patsubst|shell|sort|strip|subst|suffix|value|warning|wildcard|word|words)\b
         end: (?=\))
         contentName: string.interpolated.makefile
         patterns:
-          - include: "$self"
-
+          - include: $self
   automatic-variable:
     name: variable.language.makefile
-    match: \$([@%<?^+*]|\([@*%<^?][DF]\))
+    match: '\$([@%<?^+*]|\([@*%<^?][DF]\))'
     patterns: []
-
   shell-variable-reference:
-    begin: \$\{
-    end: \}
+    begin: '\$\{'
+    end: '\}'
     contentName: variable.other.shell.makefile
     patterns: []
-
   simple-variable:
     name: variable.other.shell.makefile
     match: \$\$?\w+
     patterns: []
-
   variables:
     patterns:
       - include: "#shell-variable-variable"
       - include: "#variable-reference"
       - include: "#simple-variable"
-
   double-quoted-string:
     name: string.quoted.double.makefile
     begin: \"
     end: \"
     patterns:
       - include: "#escaped-char"
-
   single-quoted-string:
     name: string.quoted.single.makefile
     begin: "'"
     end: "'"
     patterns:
       - include: "#escaped-char"
-
   backtick-subshell:
     begin: "`"
     end: "`"
@@ -79,23 +76,24 @@ repository:
     patterns:
       - include: source.shell
       - include: "#variable-reference"
-
   comment:
     name: comment.line.number-sign.makefile
     begin: "#"
     beginCaptures:
-      "0": { name: punctuation.definition.comment.makefile }
+      "0":
+        name: punctuation.definition.comment.makefile
     end: $\n?
     patterns:
       - match: (?<!\\)\\$\n
         name: punctuation.separator.continuation.makefile
-
   assignment:
     name: meta.assignment.makefile
-    begin: ^([a-zA-Z_][a-zA-Z0-9_]*)\s*([\+\?:]?=)
+    begin: '^([a-zA-Z_][a-zA-Z0-9_]*)\s*([\+\?:]?=)'
     beginCaptures:
-      "1": { name: variable.other.makefile }
-      "2": { name: keyword.operator.assignment.makefile }
+      "1":
+        name: variable.other.makefile
+      "2":
+        name: keyword.operator.assignment.makefile
     end: (?<!\\)\n$
     patterns:
       - include: "#automatic-variable"
@@ -104,7 +102,6 @@ repository:
       - include: "#double-quoted-string"
       - include: "#single-quoted-string"
       - include: "#backtick-subshell"
-
   rule:
     name: meta.rule.makefile
     begin: '^([^\t\:][^\:]*)\:'
@@ -112,7 +109,6 @@ repository:
     beginCaptures:
       "1":
         name: meta.rule.target.makefile
-        # nameContent: entity.name.function.rule.makefile
         patterns: []
     patterns:
       - name: meta.rule.prerequisites.makefile
@@ -124,19 +120,19 @@ repository:
       - include: "#automatic-variable"
       - include: "#variable-reference"
       - include: source.shell
-
   rule2:
     name: meta.scope.target.makefile
-    begin: ^(?!\t)([^:]*)(:)(?!\=)
+    begin: '^(?!\t)([^:]*)(:)(?!\=)'
     beginCaptures:
       "1":
         patterns:
           - captures:
               "1":
                 name: support.function.target.$1.makefile
-            match: ^\s*(\.(PHONY|SUFFIXES|DEFAULT|PRECIOUS|INTERMEDIATE|SECONDARY|SECONDEXPANSION|DELETE_ON_ERROR|IGNORE|LOW_RESOLUTION_TIME|SILENT|EXPORT_ALL_VARIABLES|NOTPARALLEL|ONESHELL|POSIX))\s*$
-          - begin: "(?=\\S)"
-            end: "(?=\\s|$)"
+            match: >-
+              ^\s*(\.(PHONY|SUFFIXES|DEFAULT|PRECIOUS|INTERMEDIATE|SECONDARY|SECONDEXPANSION|DELETE_ON_ERROR|IGNORE|LOW_RESOLUTION_TIME|SILENT|EXPORT_ALL_VARIABLES|NOTPARALLEL|ONESHELL|POSIX))\s*$
+          - begin: (?=\S)
+            end: (?=\s|$)
             name: entity.name.function.target.makefile
             patterns:
               - include: "#variables"
@@ -147,7 +143,7 @@ repository:
     end: '[^\\]$'
     patterns:
       - begin: \G
-        end: (?=[^\\])$
+        end: '(?=[^\\])$'
         name: meta.scope.prerequisites.makefile
         patterns:
           - match: \\\n
@@ -156,11 +152,10 @@ repository:
             name: constant.other.placeholder.makefile
           - include: "#comment"
           - include: "#variables"
-
   recipe:
     name: meta.scope.recipe.makefile
     begin: ^\t
-    end: ^(?=[^\t])
+    end: '^(?=[^\t])'
     patterns:
       - captures:
           "0":
@@ -170,15 +165,13 @@ repository:
               - include: "#variables"
               - include: source.shell
         match: .+\n?
-
 patterns:
   - include: "#comment"
   - include: "#assignment"
-  # - include: "#rule"
   - include: "#rule2"
   - include: "#recipe"
-  - match: ^(\-??include|if|ifeq|ifneq|ifdef|ifndef|else|endif|vpath|export|unexport|define|endef|override)\b
+  - match: >-
+      ^(\-??include|if|ifeq|ifneq|ifdef|ifndef|else|endif|vpath|export|unexport|define|endef|override)\b
     name: keyword.control.makefile
   - include: "#variables"
-
 uuid: FF1825E8-6B1C-11D9-B883-000D93589AF6
