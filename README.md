@@ -47,6 +47,11 @@ the sublime's one is kind of buggy).
 
 ## Changelog
 
+### v0.1.0
+
+- complete PKG macro family. Change proposed by jannick0 (initially
+  proposed at <https://github.com/ptomato/sublime_autotools/pull/9>)
+
 ### v0.0.9
 
 - Add [AC_CONFIG_MACRO_DIRS] provided by `automake` which surprisingly
