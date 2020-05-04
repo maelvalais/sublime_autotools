@@ -45,6 +45,23 @@ The sublime fork also has a Makefile2 (an alternate grammar file for Makefiles)
 but the standard vscode's Makefile support works much better (actually,
 the sublime's one is kind of buggy).
 
+## Publishing to vsce & secrets
+
+### For publishing to the official extension marketplace
+
+Secret required: `VSCE_TOKEN`
+
+```sh
+export VSCE_TOKEN=<the-secret>
+npm install -g vsce
+cat <<EOF > ~/.vsce
+{"publishers":[{"name":"maelvalais","pat":"$VSCE_TOKEN"}]}
+EOF
+
+# And finally, publish (don't forget to bump version first in package.json)
+vsce publish
+```
+
 ## Changelog
 
 ### v0.0.9
