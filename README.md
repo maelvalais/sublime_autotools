@@ -58,7 +58,8 @@ cat <<EOF > ~/.vsce
 {"publishers":[{"name":"maelvalais","pat":"$VSCE_TOKEN"}]}
 EOF
 
-# And finally, publish (don't forget to bump version first in package.json)
+# And finally, publish. First bump version in package.json, tag and publish.
+git tag 0.1.2
 vsce publish
 ```
 
