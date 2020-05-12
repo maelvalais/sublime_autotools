@@ -13,11 +13,13 @@ an easy way of updating vscode_autotools (which is only a matter of `git merge`)
 In order to hack this vscode extension, first remove the extension from
 inside vscode. Then:
 
-    cd ~/.vscode-insiders/extensions
-    git clone https://github.com/maelvalais/vscode_autotools.git
-    cd vscode_autotools
-    npm install
-    npm start
+```sh
+cd ~/.vscode-insiders/extensions
+git clone https://github.com/maelvalais/vscode_autotools.git
+cd vscode_autotools
+npm install
+npm start
+```
 
 Using `npm start`, the `.YAML-tmLanguage` files are automatically built
 into `.tmLanguage` and `.JSON-tmLanguage`. Whenever you change the YAML
@@ -47,21 +49,43 @@ the sublime's one is kind of buggy).
 
 ## Publishing to vsce & secrets
 
+Before publishing, I go into package.json and bump the version and commit
+that. I also `git tag` with that same version.
+
 ### For publishing to the official extension marketplace
 
-Secret required: `VSCE_TOKEN`
+**Secret required**: `VSCE_TOKEN` (stored in @maelvls's 1Password)
 
 ```sh
-export VSCE_TOKEN=<the-secret>
+export VSCE_TOKEN=<the-token>
 npm install -g vsce
 cat <<EOF > ~/.vsce
 {"publishers":[{"name":"maelvalais","pat":"$VSCE_TOKEN"}]}
 EOF
-
-# And finally, publish. First bump version in package.json, tag and publish.
-git tag 0.1.2
 vsce publish
 ```
+
+> Note: I created the [namespace](https://open-vsx.org/user-settings/namespaces) "maelvalais" with
+>
+> ```sh
+> vsce create-publisher maelvalais
+> ```
+
+### For publishing to open-vsce
+
+**Secret required**: `OVSX_PAT` (stored in @maelvls's 1Password)
+
+```sh
+export OVSX_PAT=<the-token>
+npm install -g ovsx
+ovsx publish
+```
+
+> Note: I created the [namespace](https://open-vsx.org/user-settings/namespaces) "maelvalais" with
+>
+> ```sh
+> ovsx create-namespace maelvalais
+> ```
 
 ## Changelog
 
