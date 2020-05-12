@@ -65,7 +65,7 @@ EOF
 vsce publish
 ```
 
-> Note: I created the [namespace](https://open-vsx.org/user-settings/namespaces) "maelvalais" with
+> Note: I created the [publisher id](https://code.visualstudio.com/api/working-with-extensions/publishing-extension) "maelvalais" with
 >
 > ```sh
 > vsce create-publisher maelvalais
