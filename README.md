@@ -1,6 +1,8 @@
 # Autotools syntax highlighting for VSCode
 
-This vscode package is a fork of the GitHub project [sublime_autotools]. It
+The extension is available on both [vsce](https://marketplace.visualstudio.com/items?itemName=maelvalais.autoconf), and on [ovsx].
+
+This VSCode extension is a fork of the GitHub project [sublime_autotools][]. It
 includes syntax highlighting for Autoconf M4 (`.m4`, `configure.ac`...) and
 Automake files (e.g., `Makefile.am`). This extension uses the vscode's own
 Makefile syntax support for hghlighting makefile things in automake files.
