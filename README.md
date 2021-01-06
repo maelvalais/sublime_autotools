@@ -1,6 +1,7 @@
 # Autotools syntax highlighting for VSCode
 
-The extension is available on both [vsce](https://marketplace.visualstudio.com/items?itemName=maelvalais.autoconf), and on [ovsx].
+The extension is available on both [vsce](https://marketplace.visualstudio.com/items?itemName=maelvalais.autoconf),
+and on [ovsx](https://open-vsx.org/extension/maelvalais/autoconf).
 
 This VSCode extension is a fork of the GitHub project [sublime_autotools][]. It
 includes syntax highlighting for Autoconf M4 (`.m4`, `configure.ac`...) and
