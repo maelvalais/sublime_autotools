@@ -22,6 +22,15 @@ Then you will see exactly in which scope the syntax highlighting fails:
 
 ![vscode-inspect-editor-tokens-and-scopes](https://user-images.githubusercontent.com/2195781/105803144-23cbe000-5f9d-11eb-894a-6548d0889064.png)
 
+To try to fix the grammar issue, you can clone and run the cloned folder
+as the only extension:
+
+```sh
+git clone https://github.com/maelvalais/vscode_autotools.git
+cd vscode_autotools
+npm install && npm start
+code --disable-extensions --extensionDevelopmentPath=$PWD
+```
 
 ## Development
 
@@ -29,11 +38,17 @@ In order to hack this vscode extension, first remove the extension from
 inside vscode. Then:
 
 ```sh
-cd ~/.vscode-insiders/extensions
 git clone https://github.com/maelvalais/vscode_autotools.git
 cd vscode_autotools
 npm install
 npm start
+```
+
+To run a new instance of VSCode with the modified extension:
+
+```sh
+# From inside the vscode_autotools folder you just cloned:
+code --disable-extensions --extensionDevelopmentPath=$PWD
 ```
 
 Using `npm start`, the `.YAML-tmLanguage` files are automatically built
