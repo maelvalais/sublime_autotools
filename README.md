@@ -11,6 +11,18 @@ Makefile syntax support for hghlighting makefile things in automake files.
 I chose to fork the [sublime project][sublime_autotools] in order to have
 an easy way of updating vscode_autotools (which is only a matter of `git merge`).
 
+## Debugging why the grammar is off
+
+To find out why the syntax highlighting is off, turn on the
+command "Developer: Inspect Editor Grammar Tokens and Scopes":
+
+![vscode-grammar-tokens-and-scopes-hover](https://user-images.githubusercontent.com/2195781/105803142-23334980-5f9d-11eb-8fcb-4feee8d27c04.png)
+
+Then you will see exactly in which scope the syntax highlighting fails:
+
+![vscode-inspect-editor-tokens-and-scopes](https://user-images.githubusercontent.com/2195781/105803144-23cbe000-5f9d-11eb-894a-6548d0889064.png)
+
+
 ## Development
 
 In order to hack this vscode extension, first remove the extension from
